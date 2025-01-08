@@ -1,9 +1,13 @@
+from dependency_injector.wiring import inject, Provide
 from fastapi import APIRouter, Body, Depends
 
-from api.app_container import AppContainer
-from features.user.application.mappers import user_to_dto, UserDTO
-from features.user.application.service import UserService
+from api.user.service import UserService
+from api.user.user_container import UserContainer
 from pydantic import BaseModel
+
+from features.user.application.dto import UserDTO
+from features.user.application.mappers import UserMapper
+
 
 class CreateUserRequest(BaseModel):
 	name: str
@@ -11,15 +15,14 @@ class CreateUserRequest(BaseModel):
 
 router = APIRouter()
 
-def get_user_service() -> UserService:
-	return AppContainer.user.user_service()
-
 @router.post("/users", response_model=UserDTO)
-def create_user(
+@inject
+async def create_user(
 	name: str = Body(...),
 	email: str = Body(...),
+	user_service: UserService = Depends(Provide[UserContainer.user_service])
 ):
 	print('create', name, email)
-	user = get_user_service().create_user(name=name, email=email)
+	user = await user_service.create_user(name=name, email=email)
 	print('post')
-	return user_to_dto(user)
+	return UserMapper.user_to_dto(user)

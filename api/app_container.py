@@ -1,8 +1,9 @@
-from dependency_injector import containers
+from dependency_injector import containers, providers
 
-from features.user.dependencies_container import UserContainer
+from api.user.user_container import UserContainer
 
 
 class AppContainer(containers.DeclarativeContainer):
-	user = UserContainer()
-	userabc = UserContainer()
+	user_container = providers.Container(
+		UserContainer,
+	)
