@@ -11,5 +11,16 @@ class UserMapper:
 
 
 	@staticmethod
-	def dto_to_user( dto: UserDTO ) -> User:
-		return User( id=uuid.UUID( dto.id ), name=dto.name, email=dto.email )
+	def user_to_dict( user: User ) -> dict:
+		return {
+			'id'   : str( user.id ),
+			'name' : user.name,
+			'email': user.email
+		}
+
+	@staticmethod
+	def dto_to_dict( user: UserDTO ) -> dict:
+		return {
+			'name' : user.name,
+			'email': user.email
+		}
