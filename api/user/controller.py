@@ -25,4 +25,4 @@ async def create_user(
 	print('create', name, email)
 	user = await user_service.create_user(name=name, email=email)
 	print('post')
-	return UserMapper.user_to_dto(user)
+	return UserMapper.to_dto(user )

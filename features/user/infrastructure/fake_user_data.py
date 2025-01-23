@@ -6,7 +6,6 @@ from features.user.domain.repository import UserRepository
 
 class FakeUserData(UserRepository):
 	def __init__(self):
-		print('init Data')
 		self.users: List[User] = []
 
 	def add(self, user: User) -> User:

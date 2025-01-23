@@ -6,12 +6,12 @@ from features.user.domain.model import User
 class UserMapper:
 
 	@staticmethod
-	def user_to_dto( user: User ) -> UserDTO:
+	def to_dto( user: User ) -> UserDTO:
 		return UserDTO( id=str( user.id ), name=user.name, email=user.email )
 
 
 	@staticmethod
-	def user_to_dict( user: User ) -> dict:
+	def to_dict( user: User ) -> dict:
 		return {
 			'id'   : str( user.id ),
 			'name' : user.name,
@@ -19,8 +19,9 @@ class UserMapper:
 		}
 
 	@staticmethod
-	def dto_to_dict( user: UserDTO ) -> dict:
-		return {
-			'name' : user.name,
-			'email': user.email
-		}
+	def from_dict( data: dict ) -> User:
+		return User( id=uuid.UUID( data['id'] ), name=data['name'], email=data['email'] )
+
+	@staticmethod
+	def to_domain( dto: UserDTO ) -> User:
+		return User( id=uuid.UUID( dto.id ), name=dto.name, email=dto.email )

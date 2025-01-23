@@ -9,3 +9,7 @@ class User(BaseModel):
 	@staticmethod
 	def create(name: str, email: str) -> "User":
 		return User(id=uuid4(), name=name, email=email)
+
+	@staticmethod
+	def from_dict(data: dict) -> "User":
+		return User(id=UUID(data["id"]), name=data["name"], email=data["email"])
