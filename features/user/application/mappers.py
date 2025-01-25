@@ -11,16 +11,16 @@ class UserMapper:
 
 
 	@staticmethod
-	def to_dict( user: User ) -> dict:
+	def to_dict( user: UserDTO ) -> dict:
 		return {
-			'id'   : str( user.id ),
+			'id'   : user.id,
 			'name' : user.name,
 			'email': user.email
 		}
 
 	@staticmethod
-	def from_dict( data: dict ) -> User:
-		return User( id=uuid.UUID( data['id'] ), name=data['name'], email=data['email'] )
+	def from_dict( data: dict ) -> UserDTO:
+		return UserDTO( id=data['id'], name=data['name'], email=data['email'] )
 
 	@staticmethod
 	def to_domain( dto: UserDTO ) -> User:
