@@ -1,7 +1,7 @@
 from motor.motor_asyncio import AsyncIOMotorClient
 
-from features.user.domain.model import User
-from features.user.domain.repository import UserRepository
+from features.user.domain.user import User
+from features.user.domain.user_repository import UserRepository
 
 
 class MongoUserData( UserRepository ):
