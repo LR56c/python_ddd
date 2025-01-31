@@ -6,9 +6,9 @@ from features.user.domain.email import Email
 
 class UserAppService(ABC):
 	@abstractmethod
-	async def add(self, user: UserDTO):
+	async def register( self, user: UserDTO ):
 		pass
 
 	@abstractmethod
-	async def get_by_email(self, email: Email) -> UserDTO:
+	async def get_user( self, email: Email ) -> UserDTO:
 		pass

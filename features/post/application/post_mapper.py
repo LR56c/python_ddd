@@ -9,8 +9,8 @@ from features.shared.domain.valid_uuid import ValidUUID
 class PostMapper:
 	@staticmethod
 	def to_dto( post: Post ) -> PostDTO:
-		return PostDTO( id=post.post_id.value, title=post.title.value,
-			content=post.content.value, user_id=post.owner.id.value )
+		return PostDTO( id=post.id.value, title=post.title.value,
+			content=post.content.value, user_id=post.user_id.value )
 
 	@staticmethod
 	def to_domain( dto: PostDTO ) -> Post:

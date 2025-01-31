@@ -8,10 +8,10 @@ class MongoUserData( UserRepository ):
 	def __init__( self, client : AsyncIOMotorClient ):
 		self.client = client
 
-	async def add( self, user: User ) -> User:
+	async def register( self, user: User ) -> User:
 		return user
 
-	async def get_by_email( self, email: str ) -> User:
+	async def get_user( self, email: str ) -> User:
 		# db = self.client.get_database( 'notification' )
 		# collection = db.get_collection( 'notification' )
 		# await collection.insert_one( { 'name': 'test' } )

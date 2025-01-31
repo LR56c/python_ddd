@@ -8,9 +8,9 @@ from features.user.domain.user import User
 
 class UserRepository(ABC):
 	@abstractmethod
-	async def add(self, user: User):
+	async def register(self, user: User ):
 		pass
 
 	@abstractmethod
-	async def get_by_email(self, email: Email) -> Result[User, Exception]:
+	async def get_user(self, email: Email ) -> Result[User, Exception]:
 		pass

@@ -12,8 +12,8 @@ class MemoryUserData(UserRepository):
 	def __init__(self):
 		self.users: List[User] = []
 
-	def add(self, user: User):
+	def register(self, user: User ):
 		self.users.append(user)
 
-	async def get_by_email( self, email: Email ) -> Result[User, Exception]:
+	async def get_user( self, email: Email ) -> Result[User, Exception]:
 		return next((Success(user) for user in self.users if user.email.value == email.value), Failure(Exception('User not found')))

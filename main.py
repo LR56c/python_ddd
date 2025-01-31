@@ -1,5 +1,3 @@
-import asyncio
-import os
 from contextlib import asynccontextmanager
 
 from dotenv import load_dotenv
@@ -10,6 +8,7 @@ from features.shared.infrastructure.alchemy_database import (Base,
 
 from api.app_container import AppContainer
 from api.user.controller import router as user_router
+from api.post.controller import router as post_router
 
 from fastapi import (APIRouter, FastAPI, )
 
@@ -32,6 +31,7 @@ def create_app() -> FastAPI:
 	app = FastAPI(lifespan=lifespan)
 	app.include_router( router )
 	app.include_router( user_router )
+	app.include_router( post_router )
 	return app
 
 app = create_app()

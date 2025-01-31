@@ -13,15 +13,14 @@ from features.user.infrastructure.persistance.alchemy.user_entity import \
 class AlchemyUserData( UserRepository ):
 	def __init__( self ):
 		self.session = Session
-		print( 'alchemy', self.session )
 
-	async def add( self, user: User ):
+	async def register( self, user: User ):
 		async with Session() as session:
 			new_user = UserEntity( id=user.id.value, name=user.name.value, email=user.email.value)
 			session.add( new_user )
 			await session.commit()
 
-	async def get_by_email( self, email: Email ) -> Result[User, Exception]:
+	async def get_user( self, email: Email ) -> Result[User, Exception]:
 		async with Session() as session:
 			result = await session.execute(
 				select( UserEntity ).where( UserEntity.email == email.value ) )

@@ -17,7 +17,7 @@ class CreateUser:
 		if email is None:
 			raise ValueError("Invalid email.")
 
-		existing_user = await self.repo.get_by_email(email)
+		existing_user = await self.repo.get_user(email )
 		if is_successful(existing_user):
 			raise ValueError("Email already exists.")
 
@@ -34,4 +34,4 @@ class CreateUser:
 			raise ValueError(f"Invalid user data: {', '.join(errors)}")
 
 		user = User.create(id, name, email)
-		await self.repo.add(user)
+		await self.repo.register(user )

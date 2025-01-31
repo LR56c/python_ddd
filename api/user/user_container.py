@@ -1,16 +1,11 @@
-import os
-
 from dependency_injector import containers, providers
 
 from api.user.user_instrumentation import UserInstrumentation
 from api.user.user_service import UserService
 from features.user.application.create_user import CreateUser
-from features.user.domain.email import Email
-from features.user.domain.user_repository import UserRepository
+from features.user.application.get_user import GetUser
 from features.user.infrastructure.persistance.alchemy.alchemy_user_data import \
 	AlchemyUserData
-from features.user.infrastructure.persistance.memory_user_data import \
-	MemoryUserData
 
 
 class UserContainer( containers.DeclarativeContainer ):
@@ -26,5 +21,7 @@ class UserContainer( containers.DeclarativeContainer ):
 	create = providers.Singleton(CreateUser,
 		repo=user_repository
 	)
+	get = providers.Singleton( GetUser, repo=user_repository )
 	user_service = providers.Singleton( UserService,
-		create_user=create, instrumentation=UserInstrumentation() )
+		create_user=create, get_user=get,
+		instrumentation=UserInstrumentation() )
