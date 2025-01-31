@@ -11,7 +11,7 @@ password = os.getenv("POSTGRES_PASSWORD")
 host = os.getenv("DB_HOST")
 port = os.getenv("DB_PORT")
 database = os.getenv("POSTGRES_DB")
-url = f"postgresql+asyncpg://${user}:{password}@{host}:{port}/{database}"
+url = f"postgresql+asyncpg://{user}:{password}@{host}:{port}/{database}"
 engine = create_async_engine(url, echo=True)
 Session = sessionmaker(
     bind=engine,

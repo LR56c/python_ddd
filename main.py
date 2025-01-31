@@ -21,6 +21,7 @@ async def root():
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+	await create_tables()
 	container = AppContainer()
 	app.container = container
 	app.container.init_resources()
@@ -28,7 +29,6 @@ async def lifespan(app: FastAPI):
 	app.container.shutdown_resources()
 
 def create_app() -> FastAPI:
-	asyncio.run(create_tables())
 	app = FastAPI(lifespan=lifespan)
 	app.include_router( router )
 	app.include_router( user_router )

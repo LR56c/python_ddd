@@ -1,3 +1,5 @@
+from returns.pipeline import is_successful
+
 from features.shared.domain.valid_string import ValidString
 from features.shared.domain.valid_uuid import ValidUUID
 from features.user.application.user_dto import UserDTO
@@ -8,7 +10,6 @@ from features.user.domain.user_repository import UserRepository
 
 class CreateUser:
 	def __init__(self, repo: UserRepository):
-		print("CreateUser.__init__", repo)
 		self.repo = repo
 
 	async def execute(self, dto : UserDTO):
@@ -17,8 +18,8 @@ class CreateUser:
 			raise ValueError("Invalid email.")
 
 		existing_user = await self.repo.get_by_email(email)
-		if existing_user:
-			raise ValueError("User with this email already exists.")
+		if is_successful(existing_user):
+			raise ValueError("Email already exists.")
 
 		errors = []
 		id = ValidUUID.from_str(dto.id)

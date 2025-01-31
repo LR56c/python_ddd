@@ -12,6 +12,10 @@ class PostMapper:
 		return PostDTO( id=post.post_id.value, title=post.title.value,
 			content=post.content.value, user_id=post.owner.id.value )
 
+	@staticmethod
+	def to_domain( dto: PostDTO ) -> Post:
+		return Post.from_primitives( id=dto.id, title=dto.title,
+			content=dto.content, user_id=dto.user_id )
 
 	@staticmethod
 	def to_dict( post: PostDTO ) -> dict:
@@ -45,4 +49,6 @@ class PostMapper:
 		if errors:
 			return Failure( errors )
 
-		return Success( PostDTO( id=id.value, title=title.value, content=content.value, user_id=user_id.value ) )
+		return Success(
+			PostDTO( id=id.value, title=title.value, content=content.value,
+				user_id=user_id.value ) )

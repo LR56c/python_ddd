@@ -3,27 +3,19 @@ from fastapi import APIRouter, Body, Depends
 
 from api.user.user_service import UserService
 from api.user.user_container import UserContainer
-from pydantic import BaseModel
 
 from features.user.application.user_dto import UserDTO
-from features.user.application.user_mapper import UserMapper
-
-
-class CreateUserRequest(BaseModel):
-	name: str
-	email: str
 
 router = APIRouter(prefix='/user', tags=['user'])
 
-@router.post("/", response_model=UserDTO)
+@router.post("/")
 @inject
 async def create_user(
 	user: UserDTO,
 	user_service: UserService = Depends(Provide[UserContainer.user_service])
 ):
 	try:
-		print('create data:', user)
-		await user_service.create_user(user)
+		await user_service.create(user)
 		return {
 			'result': 'success'
 		}

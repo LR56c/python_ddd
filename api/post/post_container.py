@@ -10,7 +10,6 @@ from features.user.infrastructure.persistance.alchemy.alchemy_user_data import \
 
 class PostContainer( containers.DeclarativeContainer ):
 	wiring_config = containers.WiringConfiguration( modules=[".controller"] )
-	session = providers.Dependency()
-	post_dao = providers.Singleton( AlchemyUserData, session=session )
-	post_service = providers.Singleton( PostService,
-		dao=post_dao, instrumentation=PostInstrumentation() )
+	post_dao = providers.Singleton( AlchemyUserData )
+	post_service = providers.Singleton( PostService, dao=post_dao,
+		instrumentation=PostInstrumentation() )

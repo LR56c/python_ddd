@@ -7,5 +7,5 @@ class PostService:
 		self.dao = dao
 		self.instrumentation = instrumentation
 
-	async def create_post(self, dto : PostDTO):
+	async def create(self, dto : PostDTO):
 		pass

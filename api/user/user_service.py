@@ -8,5 +8,6 @@ class UserService:
 		self.create_user = create_user
 		self.instrumentation = instrumentation
 
-	async def create_user(self, dto : UserDTO):
+	async def create(self, dto : UserDTO):
 		await self.create_user.execute(dto )
+
