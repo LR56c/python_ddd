@@ -1,7 +1,6 @@
 from typing import List
 
-from result import Result
-from returns.result import Failure, Success
+from returns.result import Failure, Result, Success
 
 from features.user.domain.email import Email
 from features.user.domain.user import User

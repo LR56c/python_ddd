@@ -5,15 +5,15 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-    "alembic>=1.14.1",
-    "asyncpg>=0.30.0",
+    "alembic==1.14.1",
+    "asyncpg==0.30.0",
     "dependency-injector==4.45.0",
-    "email-validator>=2.2.0",
+    "email-validator==2.2.0",
     "fastapi==0.115.6",
     "motor==3.6.0",
-    "pydantic>=2.10.6",
+    "pydantic==2.10.6",
     "python-dotenv==1.0.1",
-    "returns>=0.24.0",
-    "sqlalchemy>=2.0.37",
+    "returns==0.24.0",
+    "sqlalchemy==2.0.37",
     "uvicorn==0.34.0",
 ]

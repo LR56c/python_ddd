@@ -1,5 +1,4 @@
-from result import Result
-from returns.result import Failure, Success
+from returns.result import Failure, Result, Success
 
 from features.shared.domain.valid_string import ValidString
 from features.shared.domain.valid_uuid import ValidUUID

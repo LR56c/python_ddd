@@ -1,5 +1,4 @@
-from result import Result
-from returns.result import Failure, Success
+from returns.result import Failure, Result, Success
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
