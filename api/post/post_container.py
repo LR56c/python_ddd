@@ -10,8 +10,11 @@ from features.post.infrastructure.persistance.alchemy_post_data import \
 	AlchemyPostData
 
 class PostContainer( containers.DeclarativeContainer ):
-	wiring_config = containers.WiringConfiguration( modules=[".controller"] )
-	post_dao = providers.Singleton( AlchemyPostData )
+	wiring_config = containers.WiringConfiguration( modules=[".post_controller"] )
+	database = providers.Dependency()
+	post_dao = providers.Singleton( AlchemyPostData ,
+		session=database
+	)
 	create = providers.Singleton( CreatePost, dao=post_dao )
 	get = providers.Singleton( GetPostsByUser, dao=post_dao )
 	post_service = providers.Singleton( PostService, create_post=create,

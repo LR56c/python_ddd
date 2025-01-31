@@ -5,15 +5,14 @@ from features.post.domain.post import Post
 from features.post.domain.post_dao import PostDAO
 from features.post.infrastructure.persistance.post_entity import PostEntity
 from features.shared.domain.valid_uuid import ValidUUID
-from features.shared.infrastructure.alchemy_database import Session
 
 
 class AlchemyPostData( PostDAO ):
-	def __init__( self ):
-		self.session = Session
+	def __init__( self, session : AsyncSession ):
+		self.session = session
 
 	async def add( self, post: Post ):
-		async with Session() as session:
+		async with self.session as session:
 			new_post = PostEntity( id=post.id.value, title=post.title.value,
 				content=post.content.value, user_id=post.user_id.value )
 			session.add( new_post )
@@ -26,7 +25,7 @@ class AlchemyPostData( PostDAO ):
 		pass
 
 	async def get_by_user( self, user_id: ValidUUID ) -> list[Post]:
-		async with Session() as session:
+		async with self.session as session:
 			result = await session.execute(
 				select( PostEntity ).where( PostEntity.user_id == user_id.value ) )
 			database_posts = result.scalars().all()

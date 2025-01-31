@@ -9,7 +9,7 @@ from features.user.infrastructure.persistance.alchemy.alchemy_user_data import \
 
 
 class UserContainer( containers.DeclarativeContainer ):
-	wiring_config = containers.WiringConfiguration( modules=[".controller"] )
+	wiring_config = containers.WiringConfiguration( modules=[".user_controller"] )
 	# username = os.getenv('MONGO_INITDB_ROOT_USERNAME')
 	# password = os.getenv('MONGO_INITDB_ROOT_PASSWORD')
 	# host = os.getenv('MONGO_HOST')
@@ -17,7 +17,10 @@ class UserContainer( containers.DeclarativeContainer ):
 	# client = providers.Resource( AsyncIOMotorClient, url )
 	# user_repository = providers.Singleton( MongoUserData, client=client )
 	# user_repository : UserRepository = providers.Singleton( AlchemyUserData )
-	user_repository = providers.Singleton(AlchemyUserData)
+	database = providers.Dependency()
+	user_repository = providers.Singleton(AlchemyUserData,
+		session=database
+	)
 	create = providers.Singleton(CreateUser,
 		repo=user_repository
 	)

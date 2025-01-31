@@ -3,12 +3,9 @@ from contextlib import asynccontextmanager
 from dotenv import load_dotenv
 load_dotenv( )
 
-from features.shared.infrastructure.alchemy_database import (Base,
-	create_tables, engine, Session, )
-
 from api.app_container import AppContainer
-from api.user.controller import router as user_router
-from api.post.controller import router as post_router
+from api.user.user_controller import router as user_router
+from api.post.post_controller import router as post_router
 
 from fastapi import (APIRouter, FastAPI, )
 
@@ -20,7 +17,6 @@ async def root():
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-	await create_tables()
 	container = AppContainer()
 	app.container = container
 	app.container.init_resources()

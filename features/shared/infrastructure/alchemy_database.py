@@ -13,14 +13,16 @@ port = os.getenv("DB_PORT")
 database = os.getenv("POSTGRES_DB")
 url = f"postgresql+asyncpg://{user}:{password}@{host}:{port}/{database}"
 engine = create_async_engine(url, echo=True)
-Session = sessionmaker(
-    bind=engine,
-    class_=AsyncSession,
-    expire_on_commit=False
-)
+
+async def get_alchemy_session():
+    async with engine.begin() as conn:
+        await conn.run_sync( Base.metadata.create_all )
+    Session = sessionmaker(
+        bind=engine,
+        class_=AsyncSession,
+        expire_on_commit=False
+    )
+    yield Session()
+    Session.close_all()
 
 Base = declarative_base()
-
-async def create_tables():
-    async with engine.begin() as conn:
-        await conn.run_sync(Base.metadata.create_all)
